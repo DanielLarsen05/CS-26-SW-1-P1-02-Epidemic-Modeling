@@ -1,86 +1,106 @@
 #include <stdio.h>
-#include <math.h>
 #include <stdlib.h>
-#include <time.h>
-#include <string.h>
 
-#define START_POPULATION 8
+#define POPULATION 10
+#define MATRIX_SIZE_X 5
+#define MATRIX_SIZE_Y 5
 
-struct Menneske{
-    int state; //0 = healthy 1 = infected 2 = imune/dead
-    int id;
-    char *name[15];
-    int arbejder; //0 = no 1 = yes
-};
+typedef enum {
+    EMPTY,
+    SUSCEPTIBLE,
+    INFECTED,
+    RECOVERED
+} State;
 
-char names[][15] = {"Per", "Bob", "Zacharias", "David", "Victoria", "Clara", "Luna", "Søren"};
-int relations = 0;
+typedef struct {
+    int x;
+    int y;
+} Position;
 
-struct Menneske personer[START_POPULATION];
-struct Menneske relation[START_POPULATION*START_POPULATION][2];
+void printMatrix();
 
-void printRelations(){
-    printf("Test");
-    for(int i=0;i<relations;i++){
-        printf("\n(%d, %d), (%s, %s)", relation[i][0].id, relation[i][1].id, *relation[i][0].name, *relation[i][1].name);
-    }
-}
+void setupSimulation();
 
-void removeRelation(int n){
-    for(int i=n;i<relations-1;i++){
-        relation[i][0] = relation[i+1][0];
-        relation[i][1] = relation[i+1][1];
-    }
-    relations -= 1;
-}
+void resetMatrix();
 
-void setup(){
-    srand(time(NULL));
-    for(int i=0;i<START_POPULATION;i++){
-        struct Menneske person = {
-            .state = 0,
-            .id = i,
-            .name = names[rand() % 8],
-            .arbejder = rand() % 2
-        };
-        personer[i] = person;
-    }
-    //i er for index of person, og n er for number of relation
-    for(int i=0;i<START_POPULATION;i++){
-        struct Menneske person = personer[i];
-        for(int n=0;n<rand() % 5;n++){
-            struct Menneske relateredePerson = personer[rand() % START_POPULATION];
-            relation[relations][0] = person;
-            relation[relations][1] = relateredePerson;
-            relations += 1;
-        }
-    }
-    int relationsCopy = relations;
-    for(int i=0;i<relationsCopy;i++){
-        relation[relations][0] = relation[i][1];
-        relation[relations][1] = relation[i][0];
-        relations += 1;
-    }
-    for(int i=0;i<relations;i++){
-        int count = 0;
-        if(relation[i][0].id == relation[i][1].id){
-            removeRelation(i);
-            continue;
-        }
-        for(int n=0;n<relations;n++){
-            if(relation[n][0].id == relation[i][0].id && relation[n][1].id == relation[i][1].id){
-                count += 1;
-            }
-        }
-        if(count > 1){
-            removeRelation(i);
-            continue;
-        }
-    }
-    printRelations();
-}
+Position getRandomEmptyPosition();
+
+void spawnAgents();
+
+State matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
+Position agentPositions[POPULATION];
 
 int main(){
-    setup();
-    return 69;
+    setupSimulation();
+    return EXIT_SUCCESS;
+}
+
+void setupSimulation(){
+    //Check if we are all idiots
+    if(POPULATION > MATRIX_SIZE_X*MATRIX_SIZE_Y){
+        printf("Population is above total number of elements in the matrix.\n");
+        exit(EXIT_FAILURE);
+    }
+    resetMatrix();
+    spawnAgents();
+    printMatrix();
+}
+
+void resetMatrix(){
+    for(int x=0;x<MATRIX_SIZE_X;x++){
+        for(int y=0;y<MATRIX_SIZE_Y;y++){
+            matrix[x][y] = EMPTY;
+        }
+    }
+}
+
+Position getRandomEmptyPosition(){
+    int randomX = rand() % MATRIX_SIZE_X;
+    int randomY = rand() % MATRIX_SIZE_Y;
+    while(matrix[randomX][randomY] != EMPTY){
+        randomX = rand() % MATRIX_SIZE_X;
+        randomY = rand() % MATRIX_SIZE_Y;
+    }
+    Position randomPosition = {randomX, randomY};
+    return randomPosition;
+}
+
+void spawnAgents(){
+    for(int index=0;index<POPULATION;index++){
+        Position randomPosition = getRandomEmptyPosition();
+        if(index == 0){
+            matrix[randomPosition.x][randomPosition.y] = INFECTED;
+        } else{
+            matrix[randomPosition.x][randomPosition.y] = SUSCEPTIBLE;
+        }
+        agentPositions[index] = randomPosition;
+    }
+}
+
+void printMatrix(){
+    for(int y=0;y<MATRIX_SIZE_Y;y++){
+        if(y==0){
+            printf("|");
+        } else{
+            printf("\n|");
+        }
+        for(int x=0;x<MATRIX_SIZE_X;x++){
+            State state = matrix[x][y];
+            switch (state)
+            {
+            case EMPTY:
+                printf(" |");
+                break;
+            case SUSCEPTIBLE:
+                printf("S|");
+                break;
+            case INFECTED:
+                printf("I|");
+                break;
+            case RECOVERED:
+                printf("R|");
+                break;
+            }
+        }
+    }
 }
