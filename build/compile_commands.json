@@ -1,0 +1,20 @@
+[
+{
+  "directory": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build",
+  "command": "C:\\w64devkit\\bin\\ccache-gcc.exe -g -o CMakeFiles\\EpidemicModel.dir\\pandemic.c.obj -c C:\\Users\\danie\\Documents\\GitHub\\CS-26-SW-1-P1-02-Epidemic-Modeling\\pandemic.c",
+  "file": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/pandemic.c",
+  "output": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/EpidemicModel.dir/pandemic.c.obj"
+},
+{
+  "directory": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build",
+  "command": "C:\\w64devkit\\bin\\ccache-gcc.exe -g -o CMakeFiles\\simulation.dir\\setup_simulation.c.obj -c C:\\Users\\danie\\Documents\\GitHub\\CS-26-SW-1-P1-02-Epidemic-Modeling\\setup_simulation.c",
+  "file": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/setup_simulation.c",
+  "output": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/simulation.dir/setup_simulation.c.obj"
+},
+{
+  "directory": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build",
+  "command": "C:\\w64devkit\\bin\\ccache-gcc.exe -g -o CMakeFiles\\simulation.dir\\matrix.c.obj -c C:\\Users\\danie\\Documents\\GitHub\\CS-26-SW-1-P1-02-Epidemic-Modeling\\matrix.c",
+  "file": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/matrix.c",
+  "output": "C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/simulation.dir/matrix.c.obj"
+}
+]

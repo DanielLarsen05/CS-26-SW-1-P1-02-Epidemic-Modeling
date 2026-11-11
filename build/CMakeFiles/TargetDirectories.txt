@@ -1,0 +1,4 @@
+C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/EpidemicModel.dir
+C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/simulation.dir
+C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/edit_cache.dir
+C:/Users/danie/Documents/GitHub/CS-26-SW-1-P1-02-Epidemic-Modeling/build/CMakeFiles/rebuild_cache.dir
