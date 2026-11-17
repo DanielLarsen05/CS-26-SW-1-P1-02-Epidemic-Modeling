@@ -61,9 +61,11 @@ void spawnAgents(){
     for(int index=0;index<POPULATION;index++){
         Position randomPosition = getRandomEmptyPosition();
         Agent agent;
-        agent.hub1=randomPosition;
-        agent.hub2=randomPosition;
+        // start postion
         agent.position = randomPosition;
+        agent.hub1=agent.position;
+        // andet punkt agenten går i mod
+        agent.hub2=getRandomEmptyPosition();
         agent.target = agent.hub2;
         matrix[randomPosition.x][randomPosition.y] = index;
         if(index == 0){
