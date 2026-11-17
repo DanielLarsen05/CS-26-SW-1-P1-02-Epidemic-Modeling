@@ -4,9 +4,10 @@
 #define POPULATION 10
 #define MATRIX_SIZE_X 5
 #define MATRIX_SIZE_Y 5
+#define TRANSMISSION_RATE 2
+#define EMPTY -1
 
 typedef enum {
-    EMPTY,
     SUSCEPTIBLE,
     INFECTED,
     RECOVERED
@@ -17,7 +18,15 @@ typedef struct {
     int y;
 } Position;
 
-extern State matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
-extern Position agentPositions[POPULATION];
+typedef struct {
+    State state;
+    Position position;
+    Position hub1;
+    Position hub2;
+    Position target;
+} Agent;
+
+extern int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
+extern Agent agents[POPULATION];
 
 #endif

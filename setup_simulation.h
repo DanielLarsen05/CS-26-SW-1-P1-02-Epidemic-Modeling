@@ -5,10 +5,4 @@
 
 void setupSimulation();
 
-void resetMatrix();
-
-Position getRandomEmptyPosition();
-
-void spawnAgents();
-
 #endif

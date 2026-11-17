@@ -1,11 +1,12 @@
 #include "defines.h"
 #include "setup_simulation.h"
 #include "matrix.h"
+#include "agents.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-State matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
-Position agentPositions[POPULATION];
+int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
+Agent agents[POPULATION];
 
 int main(){
     setupSimulation();
