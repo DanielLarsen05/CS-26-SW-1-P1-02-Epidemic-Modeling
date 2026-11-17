@@ -61,7 +61,10 @@ void spawnAgents(){
     for(int index=0;index<POPULATION;index++){
         Position randomPosition = getRandomEmptyPosition();
         Agent agent;
+        agent.hub1=randomPosition;
+        agent.hub2=randomPosition;
         agent.position = randomPosition;
+        agent.target = agent.hub2;
         matrix[randomPosition.x][randomPosition.y] = index;
         if(index == 0){
             agent.state = INFECTED;
