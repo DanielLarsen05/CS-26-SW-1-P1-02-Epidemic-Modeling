@@ -8,6 +8,8 @@ void moveAgents();
 
 void switchTarget(Agent agent);
 
+int compareTwoPositions(Position position1, Position position2);
+
 void spawnAgents();
 
 void runTransmissions();

@@ -19,7 +19,7 @@ void setupSimulation(){
 }
 
 void iterateSimulation(){
-    
+    moveAgents();
 }
 
 void runSimulation(){
