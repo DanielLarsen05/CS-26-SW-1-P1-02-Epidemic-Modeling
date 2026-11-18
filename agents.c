@@ -77,6 +77,20 @@ void spawnAgents(){
     }
 }
 
+void switchTarget(Agent agent) {
+    if (agent.position == agent.target) {
+        if (agent.target == agent.hub2) {
+            agent.target = agent.hub1;
+        } else if (agent.target == agent.hub1) {
+            agent.target = agent.hub2;
+        } else {
+            return;
+        }
+    }
+}
+
+
+
 void runTransmisssions(){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent agent = agents[agentIndex];
