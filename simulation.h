@@ -5,4 +5,8 @@
 
 void setupSimulation();
 
+void iterateSimulation();
+
+void runSimulation();
+
 #endif

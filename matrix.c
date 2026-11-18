@@ -55,7 +55,15 @@ Position getRandomEmptyPosition(){
 }
 
 int infectedCount(){
-    
+    return 0;
+}
+
+int susceptibleCount(){
+    return 0;
+}
+
+int recoveredCount(){
+    return 0;
 }
 
 #endif

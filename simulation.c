@@ -1,7 +1,7 @@
 #ifndef SETUP_C
 #define SETUP_C
 
-#include "setup_simulation.h"
+#include "simulation.h"
 #include "matrix.h"
 #include "agents.h"
 #include <stdlib.h>
@@ -15,6 +15,22 @@ void setupSimulation(){
     }
     resetMatrix();
     spawnAgents();
+}
+
+void iterateSimulation(){
+    
+}
+
+void runSimulation(){
+    FILE* file = fopen("Output/data.txt", "w");
+    if(file == NULL){
+        printf("Could not open file Output/data.txt");
+        exit(EXIT_FAILURE);
+    }
+    while(infectedCount() > 0){
+        iterateSimulation();
+        printDataToFile(file);
+    }
 }
 
 #endif

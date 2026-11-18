@@ -11,4 +11,8 @@ Position getRandomEmptyPosition();
 
 int infectedCount();
 
+int susceptibleCount();
+
+int recoveredCount();
+
 #endif
