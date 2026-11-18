@@ -11,6 +11,13 @@ Agent agents[POPULATION];
 
 int main(){
     setupSimulation();
-    runSimulation();
+    FILE* file = fopen("Output/data.txt", "w");
+    if(file == NULL){
+        printf("Could not open file Output/data.txt");
+        exit(EXIT_FAILURE);
+    }
+    printDataToFile(file);
+    fclose(file);
+    //runSimulation();
     return EXIT_SUCCESS;
 }

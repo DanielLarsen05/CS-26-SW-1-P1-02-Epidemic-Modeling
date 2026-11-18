@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 void printDataToFile(FILE* f){
-    int countOfSusceptible = susceptibleCount();
-    int countOfInfected = infectedCount();
-    int countOfRecovered = recoveredCount();
+    int countOfSusceptible = getSusceptibleCount();
+    int countOfInfected = getInfectedCount();
+    int countOfRecovered = getRecoveredCount();
     fprintf(f, "S = %d, I = %d, R = %d\n", countOfSusceptible, countOfInfected, countOfRecovered);
 }
 

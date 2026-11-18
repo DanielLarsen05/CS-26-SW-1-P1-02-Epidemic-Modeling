@@ -29,10 +29,11 @@ void runSimulation(){
         printf("Could not open file Output/data.txt");
         exit(EXIT_FAILURE);
     }
-    while(infectedCount() > 0){
+    while(getInfectedCount() > 0){
         iterateSimulation();
         printDataToFile(file);
     }
+    fclose(file);
 }
 
 #endif

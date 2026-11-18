@@ -61,24 +61,30 @@ Position getRandomEmptyPosition(){
 int getInfectedCount(){
     int infectedCount=0;
     for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
-        if (Agent[agentIndex].state == INFECTED);
-    } infectedCount++;
+        if (agents[agentIndex].state == INFECTED){
+            infectedCount++;
+        }
+    }
     return infectedCount;
 }
 
 int getSusceptibleCount(){
     int susceptibleCount=0;
     for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
-        if (Agent[agentIndex].state == SUSCEPTIBLE);
-    } susceptibleCountCount++;
+        if (agents[agentIndex].state == SUSCEPTIBLE){
+            susceptibleCount++;
+        }
+    }
     return susceptibleCount;
 }
 
 int getRecoveredCount(){
     int recoveredCount=0;
     for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
-        if (Agent[agentIndex].state == RECOVERED);
-    } recoveredCount++;
+        if (agents[agentIndex].state == RECOVERED){
+            recoveredCount++;
+        }
+    }
     return recoveredCount;
 }
 
