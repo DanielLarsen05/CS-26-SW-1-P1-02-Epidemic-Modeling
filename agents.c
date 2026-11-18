@@ -71,8 +71,10 @@ void spawnAgents(){
         matrix[randomPosition.x][randomPosition.y] = index;
         if(index == 0){
             agent.state = INFECTED;
+            agent.infection_time = 0;
         } else{
             agent.state = SUSCEPTIBLE;
+            agent.infection_time = -1;
         }
         agents[index] = agent;
     }
@@ -105,6 +107,19 @@ void runTransmissions(){
         if(agent.state == SUSCEPTIBLE){
             int infectedNeighborCount = getInfectedNeighborCount(agent);
             agent.state = getInfection(infectedNeighborCount);
+            
+            if(agent.state == INFECTED) {
+                agent.infection_time = 0;
+            }
+        }
+    }
+}
+
+void updateInfectionDuration() {
+    for (int i = 0; i < POPULATION; i++) {
+        Agent agent = agents[i];
+        if(agent.state == INFECTED) {
+            agent.infection_time++;
         }
     }
 }
