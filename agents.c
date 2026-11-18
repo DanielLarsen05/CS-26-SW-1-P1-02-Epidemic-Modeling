@@ -78,10 +78,10 @@ void spawnAgents(){
 }
 
 void switchTarget(Agent agent) {
-    if (agent.position == agent.target) {
-        if (agent.target == agent.hub2) {
+    if (compareTwoPositions(agent.position,agent.target) {
+        if (compareTwoPosition(agent.target, agent.hub2) {
             agent.target = agent.hub1;
-        } else if (agent.target == agent.hub1) {
+        } else if (compareTwoPosition(agent.target, agent.hub1) {
             agent.target = agent.hub2;
         } else {
             return;
