@@ -20,6 +20,7 @@ void setupSimulation(){
 
 void iterateSimulation(){
     moveAgents();
+    updateInfectionDuration();
     printMatrix();
 }
 
