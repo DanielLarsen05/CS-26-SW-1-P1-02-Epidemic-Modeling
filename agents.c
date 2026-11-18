@@ -77,6 +77,13 @@ void spawnAgents(){
     }
 }
 
+int compareTwoPositions(Position position1, Position position2) {
+    if (position1.x != position2.x || position1.y != position2.y) {
+        return 0;
+    }  return 1;
+}
+
+
 void runTransmisssions(){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent agent = agents[agentIndex];
