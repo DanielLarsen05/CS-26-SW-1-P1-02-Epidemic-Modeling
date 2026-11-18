@@ -49,6 +49,7 @@ void moveAgent(Agent agent){
     matrix[selectedPosition.x][selectedPosition.y] = matrix[agent.position.x][agent.position.y];
     matrix[agent.position.x][agent.position.y] = EMPTY;
     agent.position = selectedPosition;
+    switchTarget(agent);
 }
 
 void moveAgents(){
@@ -98,7 +99,7 @@ int compareTwoPositions(Position position1, Position position2) {
 }
 
 
-void runTransmisssions(){
+void runTransmissions(){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent agent = agents[agentIndex];
         if(agent.state == SUSCEPTIBLE){
