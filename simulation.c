@@ -20,6 +20,7 @@ void setupSimulation(){
 
 void iterateSimulation(){
     moveAgents();
+    printMatrix();
 }
 
 void runSimulation(){
