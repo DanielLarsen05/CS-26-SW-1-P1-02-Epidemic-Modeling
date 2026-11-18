@@ -49,6 +49,7 @@ void moveAgent(Agent agent){
     matrix[selectedPosition.x][selectedPosition.y] = matrix[agent.position.x][agent.position.y];
     matrix[agent.position.x][agent.position.y] = EMPTY;
     agent.position = selectedPosition;
+    switchTarget(agent);
 }
 
 void moveAgents(){
@@ -78,10 +79,10 @@ void spawnAgents(){
 }
 
 void switchTarget(Agent agent) {
-    if (agent.position == agent.target) {
-        if (agent.target == agent.hub2) {
+    if (compareTwoPositions(agent.position,agent.target)) {
+        if (compareTwoPositions(agent.target, agent.hub2)) {
             agent.target = agent.hub1;
-        } else if (agent.target == agent.hub1) {
+        } else if (compareTwoPositions(agent.target, agent.hub1)) {
             agent.target = agent.hub2;
         } else {
             return;
@@ -98,7 +99,7 @@ int compareTwoPositions(Position position1, Position position2) {
 }
 
 
-void runTransmisssions(){
+void runTransmissions(){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent agent = agents[agentIndex];
         if(agent.state == SUSCEPTIBLE){
