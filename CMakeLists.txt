@@ -4,7 +4,7 @@ project(EpidemicModel)
 
 add_executable(EpidemicModel)
 
-add_library(simulation setup_simulation.c matrix.c agents.c)
+add_library(simulation simulation.c matrix.c agents.c input_output.c)
 
 target_sources(EpidemicModel PRIVATE main.c)
 

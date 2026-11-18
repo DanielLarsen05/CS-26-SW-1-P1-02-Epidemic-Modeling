@@ -1,7 +1,8 @@
 #include "defines.h"
-#include "setup_simulation.h"
+#include "simulation.h"
 #include "matrix.h"
 #include "agents.h"
+#include "input_output.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,6 +11,6 @@ Agent agents[POPULATION];
 
 int main(){
     setupSimulation();
-    printMatrix();
+    runSimulation();
     return EXIT_SUCCESS;
 }
