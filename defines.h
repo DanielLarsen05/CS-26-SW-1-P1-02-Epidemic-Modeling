@@ -6,6 +6,7 @@
 #define MATRIX_SIZE_Y 5
 #define TRANSMISSION_RATE 2
 #define EMPTY -1
+#define INFECTION_DURATION 10
 
 typedef enum {
     SUSCEPTIBLE,
@@ -24,6 +25,7 @@ typedef struct {
     Position hub1;
     Position hub2;
     Position target;
+    int infection_time;
 } Agent;
 
 extern int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
