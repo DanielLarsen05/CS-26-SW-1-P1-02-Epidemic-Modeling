@@ -11,10 +11,10 @@ Position getRandomPosition();
 
 Position getRandomEmptyPosition();
 
-int infectedCount();
+int getInfectedCount();
 
-int susceptibleCount();
+int getSusceptibleCount();
 
-int recoveredCount();
+int getRecoveredCount();
 
 #endif
