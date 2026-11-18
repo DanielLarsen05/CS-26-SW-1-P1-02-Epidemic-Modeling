@@ -7,6 +7,8 @@ void printMatrix();
 
 void resetMatrix();
 
+Position getRandomPosition();
+
 Position getRandomEmptyPosition();
 
 int infectedCount();

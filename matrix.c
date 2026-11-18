@@ -43,14 +43,18 @@ void resetMatrix(){
     }
 }
 
-Position getRandomEmptyPosition(){
+Position getRandomPosition(){
     int randomX = rand() % MATRIX_SIZE_X;
     int randomY = rand() % MATRIX_SIZE_Y;
-    while(matrix[randomX][randomY] != EMPTY){
-        randomX = rand() % MATRIX_SIZE_X;
-        randomY = rand() % MATRIX_SIZE_Y;
-    }
     Position randomPosition = {randomX, randomY};
+    return randomPosition;
+}
+
+Position getRandomEmptyPosition(){
+    Position randomPosition = getRandomPosition();
+    while(matrix[randomPosition.x][randomPosition.y] != EMPTY){
+        randomPosition = getRandomPosition();
+    }
     return randomPosition;
 }
 
