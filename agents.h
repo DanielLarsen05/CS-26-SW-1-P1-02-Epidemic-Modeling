@@ -14,6 +14,8 @@ void spawnAgents();
 
 void runTransmissions();
 
+void updateInfectionDuration();
+
 int getInfectedNeighborCount(Agent agent);
 
 State getInfection(int infectedCount);
