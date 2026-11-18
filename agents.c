@@ -3,6 +3,8 @@
 #include "agents.h"
 #include "matrix.h"
 #include <stdlib.h>
+// har lavet en midler tidlig variable
+#define totalInfectionDuration 10
 
 void moveAgent(Agent agent){
     Position selectedPosition = {agent.position.x-1, agent.position.y-1};
@@ -55,6 +57,9 @@ void moveAgent(Agent agent){
 void moveAgents(){
     for(int index=0;index<POPULATION;index++){
         moveAgent(agents[index]);
+        if (agents[index].infection_time == totalInfectionDuration) {
+            agents[index].state = RECOVERED;
+        }
     }
 }
 
