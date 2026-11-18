@@ -6,6 +6,8 @@ void moveAgent(Agent agent);
 
 void moveAgents();
 
+void switchTarget(Agent agent);
+
 void spawnAgents();
 
 void runTransmissions();
