@@ -4,6 +4,7 @@
 #include "simulation.h"
 #include "matrix.h"
 #include "agents.h"
+#include "input_output.h"
 #include <stdlib.h>
 #include <stdio.h>
 
