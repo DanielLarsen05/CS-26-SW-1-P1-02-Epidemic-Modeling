@@ -6,6 +6,9 @@
 #define MATRIX_SIZE_Y 5
 #define TRANSMISSION_RATE 2
 #define EMPTY -1
+#define TIMESTEP 1
+
+int Time = 0;
 
 typedef enum {
     SUSCEPTIBLE,
