@@ -7,6 +7,9 @@
 #define TRANSMISSION_RATE 2
 #define EMPTY -1
 #define INFECTION_DURATION 10
+#define TIMESTEP 1
+
+int Time = 0;
 
 typedef enum {
     SUSCEPTIBLE,
