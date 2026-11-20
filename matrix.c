@@ -30,7 +30,7 @@ void printHubs(){
 }
 
 void printMatrix(){
-    printf("Time: %d\n", time);
+    printf("Time: %d\n", currentTime);
     for(int y=0;y<MATRIX_SIZE_Y;y++){
         if(y==0){
             printf("|");

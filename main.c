@@ -5,12 +5,14 @@
 #include "input_output.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
 Agent agents[POPULATION];
-int time=0;
+int currentTime=0;
 
 int main(){
+    srand(time(NULL));
     setupSimulation();
     runSimulation();
     return EXIT_SUCCESS;

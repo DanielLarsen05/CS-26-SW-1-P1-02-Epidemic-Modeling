@@ -101,7 +101,7 @@ int compareTwoPositions(Position position1, Position position2) {
 void runRecovery(){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent* agent = &agents[agentIndex];
-        if (agent->state == INFECTED && time - agent->infection_time >= INFECTION_DURATION) {
+        if (agent->state == INFECTED && currentTime - agent->infection_time >= INFECTION_DURATION) {
             agent->state = RECOVERED;
         }
     }
@@ -115,7 +115,7 @@ void runTransmissions(){
             int infectedNeighborCount = getInfectedNeighborCount(agent);
             agent->state = getInfection(infectedNeighborCount);
             if(agent->state == INFECTED) {
-                agent->infection_time = time;
+                agent->infection_time = currentTime;
             }
         }
     }

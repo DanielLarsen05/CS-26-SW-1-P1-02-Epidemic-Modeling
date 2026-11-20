@@ -7,6 +7,7 @@
 #include "input_output.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 void setupSimulation(){
     //Check if we are all idiots
@@ -19,10 +20,11 @@ void setupSimulation(){
 }
 
 void iterateSimulation(){
+    srand(time(NULL));
     runRecovery();
     moveAgents();
     runTransmissions();
-    time += TIMESTEP;
+    currentTime += TIMESTEP;
 }
 
 void runSimulation(){
@@ -33,7 +35,7 @@ void runSimulation(){
     }
     printDataToFile(file);
     printMatrix();
-    while(getInfectedCount() > 0 && time < MAX_SIMULATION_TIMESTEPS){
+    while(getInfectedCount() > 0 && currentTime < MAX_SIMULATION_TIMESTEPS){
         iterateSimulation();
         printMatrix();
         printDataToFile(file);
