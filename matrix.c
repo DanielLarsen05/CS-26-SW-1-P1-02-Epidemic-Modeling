@@ -1,10 +1,36 @@
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef MATRIX_C
+#define MATRIX_C
 #include "defines.h"
+#include "agents.h"
+#include "matrix.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+void printHubs(){
+    for(int y=0;y<MATRIX_SIZE_Y;y++){
+        if(y==0){
+            printf("|");
+        } else{
+            printf("\n|");
+        }
+        for(int x=0;x<MATRIX_SIZE_X;x++){
+            Position pos = {x, y};
+            if(isPositionHub(pos) == 1){
+                printf("H1|");
+            }
+            else if(isPositionHub(pos) == 2){
+                printf("H2|");
+            }
+            else{
+                printf("  |");
+            }
+        }
+    }
+    printf("\n\n");
+}
+
 void printMatrix(){
+    printf("Time: %d\n", time);
     for(int y=0;y<MATRIX_SIZE_Y;y++){
         if(y==0){
             printf("|");
@@ -33,6 +59,19 @@ void printMatrix(){
         }
     }
     printf("\n\n");
+}
+
+int isPositionHub(Position position){
+    for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
+        Agent agent = agents[agentIndex];
+        if(compareTwoPositions(agent.hub1, position)){
+            return 1;
+        }
+        if(compareTwoPositions(agent.hub2, position)){
+            return 2;
+        }
+    }
+    return 0;
 }
 
 void resetMatrix(){

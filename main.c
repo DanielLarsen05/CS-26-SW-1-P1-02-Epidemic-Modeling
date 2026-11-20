@@ -8,16 +8,10 @@
 
 int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
 Agent agents[POPULATION];
+int time=0;
 
 int main(){
     setupSimulation();
-    FILE* file = fopen("Output/data.txt", "w");
-    if(file == NULL){
-        printf("Could not open file Output/data.txt");
-        exit(EXIT_FAILURE);
-    }
-    printDataToFile(file);
-    fclose(file);
-    //runSimulation();
+    runSimulation();
     return EXIT_SUCCESS;
 }

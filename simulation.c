@@ -19,9 +19,10 @@ void setupSimulation(){
 }
 
 void iterateSimulation(){
+    runRecovery();
     moveAgents();
-    updateInfectionDuration();
-    printMatrix();
+    runTransmissions();
+    time += TIMESTEP;
 }
 
 void runSimulation(){
@@ -30,8 +31,11 @@ void runSimulation(){
         printf("Could not open file Output/data.txt");
         exit(EXIT_FAILURE);
     }
-    while(getInfectedCount() > 0){
+    printDataToFile(file);
+    printMatrix();
+    while(getInfectedCount() > 0 && time < MAX_SIMULATION_TIMESTEPS){
         iterateSimulation();
+        printMatrix();
         printDataToFile(file);
     }
     fclose(file);

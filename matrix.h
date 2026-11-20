@@ -5,11 +5,15 @@
 
 void printMatrix();
 
+void printHubs();
+
 void resetMatrix();
 
 Position getRandomPosition();
 
 Position getRandomEmptyPosition();
+
+int isPositionHub(Position position);
 
 int getInfectedCount();
 

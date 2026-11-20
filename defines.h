@@ -1,15 +1,14 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
-#define POPULATION 10
-#define MATRIX_SIZE_X 5
-#define MATRIX_SIZE_Y 5
-#define TRANSMISSION_RATE 2
+#define POPULATION 40
+#define MATRIX_SIZE_X 10
+#define MATRIX_SIZE_Y 10
+#define TRANSMISSION_RISK_PERCENT 10
 #define EMPTY -1
 #define INFECTION_DURATION 10
 #define TIMESTEP 1
-
-int Time = 0;
+#define MAX_SIMULATION_TIMESTEPS 1000
 
 typedef enum {
     SUSCEPTIBLE,
@@ -33,5 +32,6 @@ typedef struct {
 
 extern int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
 extern Agent agents[POPULATION];
+extern int time;
 
 #endif
