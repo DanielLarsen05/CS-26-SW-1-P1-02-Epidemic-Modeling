@@ -2,8 +2,8 @@
 #define DEFINES_H
 
 #define POPULATION 40
-#define MATRIX_SIZE_X 10
-#define MATRIX_SIZE_Y 10
+#define MATRIX_SIZE_X 8
+#define MATRIX_SIZE_Y 8
 #define TRANSMISSION_RISK_PERCENT 10
 #define EMPTY -1
 #define INFECTION_DURATION 10
@@ -23,11 +23,11 @@ typedef struct {
 
 typedef struct {
     State state;
+    int infectionTime;
     Position position;
     Position hub1;
     Position hub2;
     Position target;
-    int infection_time;
 } Agent;
 
 extern int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];

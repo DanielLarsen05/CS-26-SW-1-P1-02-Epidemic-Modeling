@@ -4,8 +4,6 @@
 #include "matrix.h"
 #include <stdio.h>
 #include <stdlib.h>
-// har lavet en midler tidlig variable
-#define totalInfectionDuration 10
 
 void moveAgent(Agent* agent){
     Position selectedPosition = {agent->position.x, agent->position.y};
@@ -21,7 +19,7 @@ void moveAgent(Agent* agent){
             }
             if(matrix[neighborPosition.x][neighborPosition.y] != EMPTY){
                 continue;
-            } 
+            }
             int diffX = agent->target.x - agent->position.x;
             int diffY = agent->target.y - agent->position.y;
             int directionX = 0;
@@ -71,10 +69,10 @@ void spawnAgents(){
         matrix[randomPosition.x][randomPosition.y] = index;
         if(index == 0){
             agent.state = INFECTED;
-            agent.infection_time = 0;
+            agent.infectionTime = 0;
         } else{
             agent.state = SUSCEPTIBLE;
-            agent.infection_time = -1;
+            agent.infectionTime = -1;
         }
         agents[index] = agent;
     }
@@ -101,7 +99,7 @@ int compareTwoPositions(Position position1, Position position2) {
 void runRecovery(){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent* agent = &agents[agentIndex];
-        if (agent->state == INFECTED && currentTime - agent->infection_time >= INFECTION_DURATION) {
+        if (agent->state == INFECTED && currentTime - agent->infectionTime >= INFECTION_DURATION) {
             agent->state = RECOVERED;
         }
     }
@@ -115,13 +113,13 @@ void runTransmissions(){
             int infectedNeighborCount = getInfectedNeighborCount(agent);
             agent->state = getInfection(infectedNeighborCount);
             if(agent->state == INFECTED) {
-                agent->infection_time = currentTime;
+                agent->infectionTime = currentTime;
             }
         }
     }
 }
 
-int getInfectedNeighborCount(Agent* agent){
+int getInfectedNeighborCount(const Agent* agent){
     int infectedCount = 0;
     for(int x=-1;x<=1;x++){
         for(int y=-1;y<=1;y++){
@@ -138,8 +136,8 @@ int getInfectedNeighborCount(Agent* agent){
             if(matrix[neighborPosition.x][neighborPosition.y] == EMPTY){
                 continue;
             }
-            Agent neighbor = agents[matrix[neighborPosition.x][neighborPosition.y]];
-            if(neighbor.state == INFECTED){
+            Agent* neighbor = &agents[matrix[neighborPosition.x][neighborPosition.y]];
+            if(neighbor->state == INFECTED && neighbor->infectionTime != currentTime){
                 infectedCount += 1;
             }
         }
