@@ -38,7 +38,6 @@ void moveAgent(Agent* agent, int* matrix){
                 rating += 1;
             }
             if(rating > selectedRating){
-                printf("%d", getMatrixValue(neighborPosition, matrix));
                 selectedPosition.x = neighborPosition.x;
                 selectedPosition.y = neighborPosition.y;
                 selectedRating = rating;
