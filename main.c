@@ -1,19 +1,15 @@
 #include "defines.h"
 #include "simulation.h"
-#include "matrix.h"
-#include "agents.h"
-#include "input_output.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
-Agent agents[POPULATION];
-int currentTime=0;
-
 int main(){
+    int matrix[MATRIX_SIZE_X*MATRIX_SIZE_Y];
+    Agent agents[POPULATION];
+    int currentTime=0;
     srand(time(NULL));
-    setupSimulation();
-    runSimulation();
+    setupSimulation(matrix, agents, &currentTime);
+    runSimulation(matrix, agents, &currentTime);
     return EXIT_SUCCESS;
 }

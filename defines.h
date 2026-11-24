@@ -30,8 +30,4 @@ typedef struct {
     Position target;
 } Agent;
 
-extern int matrix[MATRIX_SIZE_X][MATRIX_SIZE_Y];
-extern Agent agents[POPULATION];
-extern int currentTime;
-
 #endif

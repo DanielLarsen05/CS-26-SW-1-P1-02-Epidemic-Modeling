@@ -6,30 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printHubs(){
-    for(int y=0;y<MATRIX_SIZE_Y;y++){
-        if(y==0){
-            printf("|");
-        } else{
-            printf("\n|");
-        }
-        for(int x=0;x<MATRIX_SIZE_X;x++){
-            Position pos = {x, y};
-            if(isPositionHub(pos) == 1){
-                printf("H1|");
-            }
-            else if(isPositionHub(pos) == 2){
-                printf("H2|");
-            }
-            else{
-                printf("  |");
-            }
-        }
-    }
-    printf("\n\n");
-}
-
-void printMatrix(){
+void printMatrixIndex(int* matrix, int currentTime){
     printf("Time: %d\n", currentTime);
     for(int y=0;y<MATRIX_SIZE_Y;y++){
         if(y==0){
@@ -38,11 +15,30 @@ void printMatrix(){
             printf("\n|");
         }
         for(int x=0;x<MATRIX_SIZE_X;x++){
-            if(matrix[x][y] == EMPTY){
+            Position currentPosition = {x, y};
+            int agentIndex = getMatrixValue(currentPosition, matrix);
+            printf("%2d|", agentIndex);
+        }
+    }
+    printf("\n\n");
+}
+
+void printMatrix(int* matrix, Agent* agents, int currentTime){
+    printf("Time: %d\n", currentTime);
+    for(int y=0;y<MATRIX_SIZE_Y;y++){
+        if(y==0){
+            printf("|");
+        } else{
+            printf("\n|");
+        }
+        for(int x=0;x<MATRIX_SIZE_X;x++){
+            Position currentPosition = {x, y};
+            int agentIndex = getMatrixValue(currentPosition, matrix);
+            if(agentIndex == EMPTY){
                 printf(" |");
                 continue;
             }
-            Agent agent = agents[matrix[x][y]];
+            Agent agent = agents[agentIndex];
             State state = agent.state;
             switch (state)
             {
@@ -61,23 +57,11 @@ void printMatrix(){
     printf("\n\n");
 }
 
-int isPositionHub(Position position){
-    for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
-        Agent agent = agents[agentIndex];
-        if(compareTwoPositions(agent.hub1, position)){
-            return 1;
-        }
-        if(compareTwoPositions(agent.hub2, position)){
-            return 2;
-        }
-    }
-    return 0;
-}
-
-void resetMatrix(){
+void resetMatrix(int* matrix){
     for(int x=0;x<MATRIX_SIZE_X;x++){
         for(int y=0;y<MATRIX_SIZE_Y;y++){
-            matrix[x][y] = EMPTY;
+            Position currentPosition = {x, y};
+            setMatrixValue(currentPosition, EMPTY, matrix);
         }
     }
 }
@@ -89,15 +73,23 @@ Position getRandomPosition(){
     return randomPosition;
 }
 
-Position getRandomEmptyPosition(){
+Position getRandomEmptyPosition(int* matrix){
     Position randomPosition = getRandomPosition();
-    while(matrix[randomPosition.x][randomPosition.y] != EMPTY){
+    while(getMatrixValue(randomPosition, matrix) != EMPTY){
         randomPosition = getRandomPosition();
     }
     return randomPosition;
 }
 
-int getInfectedCount(){
+int getMatrixValue(Position position, int* matrix){
+    return matrix[position.x+MATRIX_SIZE_X*position.y];
+}
+
+void setMatrixValue(Position position, int value, int* matrix){
+    matrix[position.x+MATRIX_SIZE_X*position.y] = value;
+}
+
+int getInfectedCount(Agent* agents){
     int infectedCount=0;
     for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
         if (agents[agentIndex].state == INFECTED){
@@ -107,7 +99,7 @@ int getInfectedCount(){
     return infectedCount;
 }
 
-int getSusceptibleCount(){
+int getSusceptibleCount(Agent* agents){
     int susceptibleCount=0;
     for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
         if (agents[agentIndex].state == SUSCEPTIBLE){
@@ -117,7 +109,7 @@ int getSusceptibleCount(){
     return susceptibleCount;
 }
 
-int getRecoveredCount(){
+int getRecoveredCount(Agent* agents){
     int recoveredCount=0;
     for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
         if (agents[agentIndex].state == RECOVERED){

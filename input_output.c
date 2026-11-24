@@ -2,13 +2,13 @@
 #define INPUT_OUTPUT_C
 #include "input_output.h"
 #include "matrix.h"
+#include "defines.h"
 #include <stdio.h>
-#include <stdlib.h>
 
-void printDataToFile(FILE* f){
-    int countOfSusceptible = getSusceptibleCount();
-    int countOfInfected = getInfectedCount();
-    int countOfRecovered = getRecoveredCount();
+void printDataToFile(FILE* f, Agent* agents){
+    int countOfSusceptible = getSusceptibleCount(agents);
+    int countOfInfected = getInfectedCount(agents);
+    int countOfRecovered = getRecoveredCount(agents);
     fprintf(f, "S = %d, I = %d, R = %d\n", countOfSusceptible, countOfInfected, countOfRecovered);
 }
 

@@ -3,22 +3,23 @@
 
 #include "defines.h"
 
-void printMatrix();
+void printMatrixIndex(int* matrix, int currentTime);
 
-void printHubs();
+void printMatrix(int* matrix, Agent* agents, int currentTime);
 
-void resetMatrix();
+void resetMatrix(int* matrix);
 
 Position getRandomPosition();
 
-Position getRandomEmptyPosition();
+Position getRandomEmptyPosition(int* matrix);
 
-int isPositionHub(Position position);
+int getMatrixValue(Position position, int* matrix);
+void setMatrixValue(Position position, int value, int* matrix);
 
-int getInfectedCount();
+int getInfectedCount(Agent* agents);
 
-int getSusceptibleCount();
+int getSusceptibleCount(Agent* agents);
 
-int getRecoveredCount();
+int getRecoveredCount(Agent* agents);
 
 #endif

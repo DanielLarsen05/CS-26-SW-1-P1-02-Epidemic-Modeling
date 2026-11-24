@@ -1,12 +1,11 @@
 #ifndef SETUP_H
 #define SETUP_H
-
 #include "defines.h"
 
-void setupSimulation();
+void setupSimulation(int* matrix, Agent* agents, int* currentTime);
 
-void iterateSimulation();
+void iterateSimulation(int* matrix, Agent* agents, int* currentTime);
 
-void runSimulation();
+void runSimulation(int* matrix, Agent* agents, int* currentTime);
 
 #endif

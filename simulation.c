@@ -9,36 +9,37 @@
 #include <stdio.h>
 #include <time.h>
 
-void setupSimulation(){
+void setupSimulation(int* matrix, Agent* agents, int* currentTime){
     //Check if we are all idiots
     if(POPULATION > MATRIX_SIZE_X*MATRIX_SIZE_Y){
         printf("Population is above total number of elements in the matrix.\n");
         exit(EXIT_FAILURE);
     }
-    resetMatrix();
-    spawnAgents();
+    *currentTime = 0;
+    resetMatrix(matrix);
+    spawnAgents(matrix, agents);
 }
 
-void iterateSimulation(){
+void iterateSimulation(int* matrix, Agent* agents, int* currentTime){
     srand(time(NULL));
-    runRecovery();
-    moveAgents();
-    runTransmissions();
-    currentTime += TIMESTEP;
+    runRecovery(agents, *currentTime);
+    moveAgents(matrix, agents);
+    runTransmissions(matrix, agents, *currentTime);
+    *currentTime += TIMESTEP;
 }
 
-void runSimulation(){
+void runSimulation(int* matrix, Agent* agents, int* currentTime){
     FILE* file = fopen("Output/data.txt", "w");
     if(file == NULL){
         printf("Could not open file Output/data.txt");
         exit(EXIT_FAILURE);
     }
-    printDataToFile(file);
-    printMatrix();
-    while(getInfectedCount() > 0 && currentTime < MAX_SIMULATION_TIMESTEPS){
-        iterateSimulation();
-        printMatrix();
-        printDataToFile(file);
+    printDataToFile(file, agents);
+    printMatrix(matrix, agents, *currentTime);
+    while(getInfectedCount(agents) > 0 && *currentTime < MAX_SIMULATION_TIMESTEPS){
+        iterateSimulation(matrix, agents, currentTime);
+        printMatrix(matrix, agents, *currentTime);
+        printDataToFile(file, agents);
     }
     fclose(file);
 }

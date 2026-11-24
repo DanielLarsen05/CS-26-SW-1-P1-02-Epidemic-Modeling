@@ -2,21 +2,21 @@
 #define AGENTS_H
 #include "defines.h"
 
-void moveAgent(Agent* agent);
+void moveAgent(Agent* agent, int* matrix);
 
-void moveAgents();
+void moveAgents(int* matrix, Agent* agents);
 
 void switchTarget(Agent* agent);
 
 int compareTwoPositions(Position position1, Position position2);
 
-void spawnAgents();
+void spawnAgents(int* matrix, Agent* agents);
 
-void runRecovery();
+void runRecovery(Agent* agents, int currentTime);
 
-void runTransmissions();
+void runTransmissions(int* matrix, Agent* agents, int currentTime);
 
-int getInfectedNeighborCount(Agent* agent);
+int getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int currentTime);
 
 State getInfection(int infectedCount);
 

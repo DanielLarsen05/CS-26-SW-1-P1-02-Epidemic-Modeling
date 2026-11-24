@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void moveAgent(Agent* agent){
+void moveAgent(Agent* agent, int* matrix){
     Position selectedPosition = {agent->position.x, agent->position.y};
     int selectedRating = 0;
     for(int x=-1;x<=1;x++){
@@ -17,7 +17,7 @@ void moveAgent(Agent* agent){
             if(neighborPosition.y < 0 || neighborPosition.y >= MATRIX_SIZE_Y){
                 continue;
             }
-            if(matrix[neighborPosition.x][neighborPosition.y] != EMPTY){
+            if(getMatrixValue(neighborPosition, matrix) != EMPTY){
                 continue;
             }
             int diffX = agent->target.x - agent->position.x;
@@ -38,27 +38,32 @@ void moveAgent(Agent* agent){
                 rating += 1;
             }
             if(rating > selectedRating){
+                printf("%d", getMatrixValue(neighborPosition, matrix));
                 selectedPosition.x = neighborPosition.x;
                 selectedPosition.y = neighborPosition.y;
                 selectedRating = rating;
             }
         }
     }
-    matrix[selectedPosition.x][selectedPosition.y] = matrix[agent->position.x][agent->position.y];
-    matrix[agent->position.x][agent->position.y] = EMPTY;
+    if(compareTwoPositions(selectedPosition, agent->position)){
+        return;
+    }
+    int agentIndex = getMatrixValue(agent->position, matrix);
+    setMatrixValue(selectedPosition, agentIndex, matrix);
+    setMatrixValue(agent->position, EMPTY, matrix);
     agent->position = selectedPosition;
     switchTarget(agent);
 }
 
-void moveAgents(){
+void moveAgents(int* matrix, Agent* agents){
     for(int index=0;index<POPULATION;index++){
-        moveAgent(&agents[index]);
+        moveAgent(&agents[index], matrix);
     }
 }
 
-void spawnAgents(){
+void spawnAgents(int* matrix, Agent* agents){
     for(int index=0;index<POPULATION;index++){
-        Position randomPosition = getRandomEmptyPosition();
+        Position randomPosition = getRandomEmptyPosition(matrix);
         Agent agent;
         // start postion
         agent.position = randomPosition;
@@ -66,7 +71,7 @@ void spawnAgents(){
         // andet punkt agenten går i mod
         agent.hub2 = getRandomPosition();
         agent.target = agent.hub2;
-        matrix[randomPosition.x][randomPosition.y] = index;
+        setMatrixValue(randomPosition, index, matrix);
         if(index == 0){
             agent.state = INFECTED;
             agent.infectionTime = 0;
@@ -96,7 +101,7 @@ int compareTwoPositions(Position position1, Position position2) {
     }  return 1;
 }
 
-void runRecovery(){
+void runRecovery(Agent* agents, int currentTime){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent* agent = &agents[agentIndex];
         if (agent->state == INFECTED && currentTime - agent->infectionTime >= INFECTION_DURATION) {
@@ -106,11 +111,11 @@ void runRecovery(){
 }
 
 
-void runTransmissions(){
+void runTransmissions(int* matrix, Agent* agents, int currentTime){
     for(int agentIndex=0;agentIndex<POPULATION;agentIndex++){
         Agent* agent = &agents[agentIndex];
         if(agent->state == SUSCEPTIBLE){
-            int infectedNeighborCount = getInfectedNeighborCount(agent);
+            int infectedNeighborCount = getInfectedNeighborCount(agent, matrix, agents, currentTime);
             agent->state = getInfection(infectedNeighborCount);
             if(agent->state == INFECTED) {
                 agent->infectionTime = currentTime;
@@ -119,7 +124,7 @@ void runTransmissions(){
     }
 }
 
-int getInfectedNeighborCount(const Agent* agent){
+int getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int currentTime){
     int infectedCount = 0;
     for(int x=-1;x<=1;x++){
         for(int y=-1;y<=1;y++){
@@ -133,10 +138,10 @@ int getInfectedNeighborCount(const Agent* agent){
             if(neighborPosition.y < 0 || neighborPosition.y >= MATRIX_SIZE_Y){
                 continue;
             }
-            if(matrix[neighborPosition.x][neighborPosition.y] == EMPTY){
+            if(getMatrixValue(neighborPosition, matrix) == EMPTY){
                 continue;
             }
-            Agent* neighbor = &agents[matrix[neighborPosition.x][neighborPosition.y]];
+            Agent* neighbor = &agents[getMatrixValue(neighborPosition, matrix)];
             if(neighbor->state == INFECTED && neighbor->infectionTime != currentTime){
                 infectedCount += 1;
             }
