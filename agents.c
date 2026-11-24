@@ -7,10 +7,39 @@
 
 void moveAgent(Agent* agent, int* matrix){
     Position selectedPosition = {agent->position.x, agent->position.y};
-    int selectedRating = 0;
-    for(int x=-1;x<=1;x++){
-        for(int y=-1;y<=1;y++){
-            Position neighborPosition = {agent->position.x+x, agent->position.y+y};
+    int selectedMovementRating = 0;
+
+
+    int diffX = agent->target.x - agent->position.x;
+    int diffY = agent->target.y - agent->position.y;
+    int targetDirectionX = 0;
+    int targetDirectionY = 0;
+
+    // Calculate target direction
+    if (diffX > 0) {
+        targetDirectionX = 1;
+    } else if (diffX < 0) {
+        targetDirectionX = -1;
+    }
+
+    if (diffY > 0) {
+        targetDirectionY = 1;
+    } else if (diffY < 0) {
+        targetDirectionY = -1;
+    }
+
+
+    // Iterates the agents eight neighboring positions
+    for(int neighborDirectionX = -1; neighborDirectionX <= 1; neighborDirectionX++){
+        for(int neighborDirectionY = -1; neighborDirectionY <= 1; neighborDirectionY++){
+
+            // Finds neighbor position
+            Position neighborPosition = {
+                agent->position.x + neighborDirectionX,
+                agent->position.y + neighborDirectionY
+            };
+
+            // Skip positions outside the matrix
             if(neighborPosition.x < 0 || neighborPosition.x >= MATRIX_SIZE_X){
                 continue;
             }
@@ -20,36 +49,34 @@ void moveAgent(Agent* agent, int* matrix){
             if(getMatrixValue(neighborPosition, matrix) != EMPTY){
                 continue;
             }
-            int diffX = agent->target.x - agent->position.x;
-            int diffY = agent->target.y - agent->position.y;
-            int directionX = 0;
-            int directionY = 0;
-            if(diffX != 0){
-                directionX = abs(diffX)/diffX;
+
+
+            int movementRating = 0;
+
+            if(targetDirectionX == neighborDirectionX){
+                movementRating += 1;
             }
-            if(diffY != 0){
-                directionY = abs(diffY)/diffY;
+            if(targetDirectionY == neighborDirectionY){
+                movementRating += 1;
             }
-            int rating = 0;
-            if(directionX == x){
-                rating += 1;
-            }
-            if(directionY == y){
-                rating += 1;
-            }
-            if(rating > selectedRating){
+
+            // Selects the position with the highest movement rating
+            if(movementRating > selectedMovementRating){
                 selectedPosition.x = neighborPosition.x;
                 selectedPosition.y = neighborPosition.y;
-                selectedRating = rating;
+                selectedMovementRating = movementRating;
             }
         }
+
     }
     if(compareTwoPositions(selectedPosition, agent->position)){
         return;
     }
+    // Updates the agent position in the matrix
     int agentIndex = getMatrixValue(agent->position, matrix);
     setMatrixValue(selectedPosition, agentIndex, matrix);
     setMatrixValue(agent->position, EMPTY, matrix);
+    // Updates the agents position
     agent->position = selectedPosition;
     switchTarget(agent);
 }
