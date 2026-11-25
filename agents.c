@@ -4,6 +4,7 @@
 #include "matrix.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void moveAgent(Agent* agent, int* matrix){
     //collects the current position of the agent
@@ -209,10 +210,12 @@ int getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int
 }
 
 State getInfection(int infectedCount){
-    // calculates the risk of infection based on the infected count
-    int riskOfInfection = TRANSMISSION_RISK_PERCENT*infectedCount;
-    int randomNumber = rand() % 100;
-    //if the random number (between 0 and 99) if lower than risk of infection, return infected
+    // converts TRANSMISSION_RISK_PERCENT to a probability between 0-1
+    double p = TRANSMISSION_RISK_PERCENT/100.0;
+    // calculates the risk of at least one of the infected neighbors transmits the infection
+    double riskOfInfection = 1-pow(1.0-p,infectedCount);
+    double randomNumber = rand() /(double)RAND_MAX;
+    //if the random number (between 0 and 1) is lower than risk of infection, return infected
     if(randomNumber < riskOfInfection){
         return INFECTED;
     }
