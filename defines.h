@@ -9,6 +9,8 @@
 #define INFECTION_DURATION 10
 #define TIMESTEP 1
 #define MAX_SIMULATION_TIMESTEPS 1000
+#define VISUAL_MODE 0
+#define PRINT_DELAY 0.5
 
 typedef enum {
     SUSCEPTIBLE,
