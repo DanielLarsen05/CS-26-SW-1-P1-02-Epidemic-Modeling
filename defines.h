@@ -8,6 +8,7 @@
 #define MATRIX_SIZE_X 8
 #define MATRIX_SIZE_Y 8
 #define TRANSMISSION_RISK_PERCENT 10
+#define TRANSMISSION_RISK_MASK_PERCENT 2
 #define EMPTY -1
 #define INFECTION_DURATION 10
 #define TIMESTEP 1
@@ -41,6 +42,7 @@ typedef struct {
     Position hub1;
     Position hub2;
     Position target;
+    int wearsMask;
 } Agent;
 
 #endif
