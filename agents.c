@@ -164,10 +164,10 @@ void runTransmissions(int* matrix, Agent* agents, int currentTime){
         Agent* agent = &agents[agentIndex];
         //checks if the agent is susceptible
         if(agent->state == SUSCEPTIBLE){
-            // finds all neighbors and randomly decides if the Agent gets infected
-            // weighted by the amount of infected neighbors
-            int infectedNeighborCount = getInfectedNeighborCount(agent, matrix, agents, currentTime);
-            agent->state = getInfection(infectedNeighborCount);
+            int infectedMaskCount = 0;
+            int infectedNoMaskCount = 0;
+            getInfectedNeighborCount(agent, matrix, agents, currentTime, &infectedMaskCount, &infectedNoMaskCount);
+            agent->state = getInfection(infectedMaskCount, infectedNoMaskCount);
             // if the Agent becomes infected, assign the current time as the infection time
             if(agent->state == INFECTED) {
                 agent->infectionTime = currentTime;
@@ -176,8 +176,11 @@ void runTransmissions(int* matrix, Agent* agents, int currentTime){
     }
 }
 
-int getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int currentTime){
-    int infectedCount = 0;
+void getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int currentTime, int* infectedMaskCount, int* infectedNoMaskCount){
+
+
+    *infectedMaskCount = 0;
+    *infectedNoMaskCount = 0;
     //iterates through the 8 surrounding tiles
     for(int x=-1;x<=1;x++){
         for(int y=-1;y<=1;y++){
@@ -201,19 +204,25 @@ int getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int
             // if the tile contains an agent, check if they are infected and tally the counter accordingly
             Agent* neighbor = &agents[getMatrixValue(neighborPosition, matrix)];
             if(neighbor->state == INFECTED && neighbor->infectionTime != currentTime){
-                infectedCount += 1;
+                if (neighbor->wearsMask) {
+                    (*infectedMaskCount)++;
+                } else{
+                    (*infectedNoMaskCount)++;
+                }
+
             }
         }
     }
-    // returns the final amount of infected neighbors
-    return infectedCount;
 }
 
-State getInfection(int infectedCount){
+State getInfection(int infectedMaskCount, int infectedNoMaskCount ){
     // converts TRANSMISSION_RISK_PERCENT to a probability between 0-1
-    double p = TRANSMISSION_RISK_PERCENT/100.0;
+
+    double pWearsMask = TRANSMISSION_RISK_MASK_PERCENT/100.0;
+    double pWearsNoMask = TRANSMISSION_RISK_PERCENT/100.0;
+
     // calculates the risk of at least one of the infected neighbors transmits the infection
-    double riskOfInfection = 1-pow(1.0-p,infectedCount);
+    double riskOfInfection = 1-pow(1.0-pWearsNoMask,infectedNoMaskCount)*pow(1.0-pWearsMask,infectedMaskCount);
     double randomNumber = rand() /(double)RAND_MAX;
     //if the random number (between 0 and 1) is lower than risk of infection, return infected
     if(randomNumber < riskOfInfection){

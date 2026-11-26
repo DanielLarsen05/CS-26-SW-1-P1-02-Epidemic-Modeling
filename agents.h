@@ -16,8 +16,8 @@ void runRecovery(Agent* agents, int currentTime);
 
 void runTransmissions(int* matrix, Agent* agents, int currentTime);
 
-int getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int currentTime);
+void getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, int currentTime, int* infectedMaskCount, int* infectedNoMaskCount);
 
-State getInfection(int infectedCount);
+State getInfection(int infectedMaskCount, int infectedNoMaskCount);
 
 #endif
