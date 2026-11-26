@@ -5,11 +5,15 @@
 #include "defines.h"
 #include <stdio.h>
 
+void setupDataFile(FILE* f){
+    fprintf(f, "Susceptible,Infected,Recovered\n");
+}
+
 void printDataToFile(FILE* f, Agent* agents){
     int countOfSusceptible = getSusceptibleCount(agents);
     int countOfInfected = getInfectedCount(agents);
     int countOfRecovered = getRecoveredCount(agents);
-    fprintf(f, "S = %d, I = %d, R = %d\n", countOfSusceptible, countOfInfected, countOfRecovered);
+    fprintf(f, "%d,%d,%d\n", countOfSusceptible, countOfInfected, countOfRecovered);
 }
 
 #endif

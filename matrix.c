@@ -7,6 +7,9 @@
 #include <stdlib.h>
 
 void printMatrixIndex(int* matrix, int currentTime){
+    if(!VISUAL_MODE){
+        return;
+    }
     // first it writes the current timestep of the simulation
     printf("Time: %d\n", currentTime);
     // then it creates a for loop to iterate through the y axis
@@ -30,6 +33,9 @@ void printMatrixIndex(int* matrix, int currentTime){
 }
 
 void printMatrix(int* matrix, Agent* agents, int currentTime){
+    if(VISUAL_MODE == 0){
+        return;
+    }
     //prints the current time
     printf("Time: %d\n", currentTime);
     // iterates through the y layer of the matrix
