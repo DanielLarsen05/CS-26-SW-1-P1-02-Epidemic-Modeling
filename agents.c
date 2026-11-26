@@ -239,13 +239,19 @@ void runVaccination(Agent* agents, int currentTime) {
         return;
     } else {
         // figures out how many people should get the chance to be vaccinated
-        const int vaccinesAdministered = VACCINATION_RATE * (currentTime - VACCINATION_START);
-        // iterates through the agent list, ending when it either hits the end of the agents or the vaccines administered
-        for(int agentIndex=0;agentIndex<POPULATION && agentIndex <= vaccinesAdministered;agentIndex++) {
+        int vaccinesAdministered = VACCINATION_RATE * (currentTime - VACCINATION_START);
+
+        // iterates through the agent list
+        // ends when it either hits the end of the agents or the vaccines administered
+        // we skip the first in the array (0) since it always starts as infected
+        for(int agentIndex=1;agentIndex<POPULATION && agentIndex <= vaccinesAdministered;agentIndex++) {
             // checks if the selected agent is susceptible, and vaccinates them if they are
             Agent* agent = &agents[agentIndex];
             if (agent->state == SUSCEPTIBLE) {
                 agent->state = VACCINATED;
+            } else if (agent->state == INFECTED || agent->state == RECOVERED) { //this part will probably be removed
+                //if the agent is actively infected or recovered, their vaccines go to another person
+                vaccinesAdministered++;
             }
         }
     }
