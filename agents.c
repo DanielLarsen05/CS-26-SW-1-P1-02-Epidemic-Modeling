@@ -233,4 +233,22 @@ State getInfection(int infectedMaskCount, int infectedNoMaskCount ){
     }
 }
 
+void runVaccination(Agent* agents, int currentTime) {
+    // first it checks to see if vaccinations should start yet, and ends the function if not
+    if (VACCINATION_START <= currentTime) {
+        return;
+    } else {
+        // figures out how many people should get the chance to be vaccinated
+        const int vaccinesAdministered = VACCINATION_RATE * (currentTime - VACCINATION_START);
+        // iterates through the agent list, ending when it either hits the end of the agents or the vaccines administered
+        for(int agentIndex=0;agentIndex<POPULATION && agentIndex <= vaccinesAdministered;agentIndex++) {
+            // checks if the selected agent is susceptible, and vaccinates them if they are
+            Agent* agent = &agents[agentIndex];
+            if (agent->state == SUSCEPTIBLE) {
+                agent->state = VACCINATED;
+            }
+        }
+    }
+}
+
 #endif

@@ -20,4 +20,6 @@ void getInfectedNeighborCount(const Agent* agent, int* matrix, Agent* agents, in
 
 State getInfection(int infectedMaskCount, int infectedNoMaskCount);
 
+void runVaccination(Agent* agents, int currentTime);
+
 #endif

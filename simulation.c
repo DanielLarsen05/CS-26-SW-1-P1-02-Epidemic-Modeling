@@ -28,6 +28,7 @@ void iterateSimulation(int* matrix, Agent* agents, int* currentTime){
     runRecovery(agents, *currentTime);
     moveAgents(matrix, agents);
     runTransmissions(matrix, agents, *currentTime);
+    runVaccination(agents, *currentTime);
     *currentTime += TIMESTEP;
 }
 

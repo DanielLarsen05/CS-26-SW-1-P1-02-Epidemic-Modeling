@@ -15,6 +15,9 @@
 #define MAX_SIMULATION_TIMESTEPS 1000
 #define VISUAL_MODE 1
 #define PRINT_DELAY 0.5
+#define VACCINATION_START 10 // the timestep where agents get vaccinated
+#define VACCINATION_RATE 2 // how many that can get vaccinated per timestep
+
 
 typedef enum {
     SUSCEPTIBLE,
