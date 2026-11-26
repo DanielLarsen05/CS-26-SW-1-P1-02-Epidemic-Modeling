@@ -13,7 +13,8 @@ void printDataToFile(FILE* f, Agent* agents){
     int countOfSusceptible = getSusceptibleCount(agents);
     int countOfInfected = getInfectedCount(agents);
     int countOfRecovered = getRecoveredCount(agents);
-    fprintf(f, "%d,%d,%d\n", countOfSusceptible, countOfInfected, countOfRecovered);
+    int countOfVaccinated = getVaccinatedCount(agents);
+    fprintf(f, "%d,%d,%d,%d\n", countOfSusceptible, countOfInfected, countOfRecovered, countOfVaccinated);
 }
 
 #endif

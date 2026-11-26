@@ -156,4 +156,17 @@ int getRecoveredCount(Agent* agents){
     return recoveredCount;
 }
 
+int getVaccinatedCount(Agent* agents){
+    // initializes a counter, and then checks every agent in the Agent array if they are Vaccinated
+    int VaccinatedCount=0;
+    for (int agentIndex=0; agentIndex<POPULATION; agentIndex++) {
+        // if the currently measured agent is recovered, it increases the counter by 1
+        if (agents[agentIndex].state == VACCINATED){
+            VaccinatedCount++;
+        }
+    }
+    // and then it returns the number of recovered found in the agent array
+    return VaccinatedCount;
+}
+
 #endif

@@ -22,4 +22,6 @@ int getSusceptibleCount(Agent* agents);
 
 int getRecoveredCount(Agent* agents);
 
+int getVaccinatedCount(Agent* agents);
+
 #endif
