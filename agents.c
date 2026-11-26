@@ -140,8 +140,8 @@ void switchTarget(Agent* agent) {
 int compareTwoPositions(Position position1, Position position2) {
     // if the position is the same, returns true, and false if not
     if (position1.x != position2.x || position1.y != position2.y) {
-        return 0;
-    }  return 1;
+        return False;
+    }  return True;
 }
 
 void runRecovery(Agent* agents, int currentTime){

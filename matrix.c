@@ -33,7 +33,7 @@ void printMatrixIndex(int* matrix, int currentTime){
 }
 
 void printMatrix(int* matrix, Agent* agents, int currentTime){
-    if(VISUAL_MODE == 0){
+    if(VISUAL_MODE == False){
         return;
     }
     //prints the current time
