@@ -10,7 +10,7 @@ void moveAgent(Agent* agent, int* matrix) {
     //collects the current position of the agent
     Position selectedPosition = {agent->position.x, agent->position.y};
 
-    int selectedMovementRating = -3;
+    int selectedMovementRating = -1;
 
     // Calculate target direction
     Position targetDirection = calculateTargetDirection(agent);
@@ -19,7 +19,10 @@ void moveAgent(Agent* agent, int* matrix) {
     Position neighborDirection;
     for(neighborDirection.x = -1; neighborDirection.x <= 1; neighborDirection.x++) {
         for(neighborDirection.y = -1; neighborDirection.y <= 1; neighborDirection.y++){
-
+            //Skip own position
+            if(neighborDirection.x == 0 && neighborDirection.y == 0){
+                continue;
+            }
             // Finds neighbor position
             Position neighborPosition = {
                 agent->position.x + neighborDirection.x,
@@ -56,7 +59,7 @@ void moveAgent(Agent* agent, int* matrix) {
     // if the final selected position is the position the agent is currently standing in
     // then skip the following lines
     if(compareTwoPositions(selectedPosition, agent->position)){
-    return;
+        return;
     }
     // Updates the agent position in the matrix
     int agentIndex = getMatrixValue(agent->position, matrix);
@@ -78,7 +81,7 @@ void moveAgents(int* matrix, Agent* agents){
 
 
 int calculateMovementRating(Position targetDirection, Position neighborDirection) {
-    int movementRating = 0;
+    int movementRating = 2;
 
     // Adds 1 for each matching direction
     // Subtracts 1 for each opposite direction
