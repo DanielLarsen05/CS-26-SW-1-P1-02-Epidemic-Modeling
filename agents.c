@@ -6,34 +6,18 @@
 #include <stdlib.h>
 #include <math.h>
 
-void moveAgent(Agent* agent, int* matrix){
+void moveAgent(Agent* agent, int* matrix) {
     //collects the current position of the agent
     Position selectedPosition = {agent->position.x, agent->position.y};
+
     int selectedMovementRating = 0;
 
-    //finds the difference between the agent's current position and the target position
-    int diffX = agent->target.x - agent->position.x;
-    int diffY = agent->target.y - agent->position.y;
-    Position targetDiff = {diffX, diffY};
-    Position targetDirection = {0, 0};
-
     // Calculate target direction
-    if (targetDiff.x > 0) {
-        targetDirection.x = 1;
-    } else if (targetDiff.x < 0) {
-        targetDirection.x = -1;
-    }
-
-    if (targetDiff.y > 0) {
-        targetDirection.y = 1;
-    } else if (targetDiff.y < 0) {
-        targetDirection.y = -1;
-    }
-
+    Position targetDirection = calculateTargetDirection(agent);
 
     // Iterates the agents eight neighboring positions
     Position neighborDirection;
-    for(neighborDirection.x = -1; neighborDirection.x <= 1; neighborDirection.x++){
+    for(neighborDirection.x = -1; neighborDirection.x <= 1; neighborDirection.x++) {
         for(neighborDirection.y = -1; neighborDirection.y <= 1; neighborDirection.y++){
 
             // Finds neighbor position
@@ -52,17 +36,13 @@ void moveAgent(Agent* agent, int* matrix){
             if(getMatrixValue(neighborPosition, matrix) != EMPTY){
                 continue;
             }
-
-            //checks if the currently iterated position would move the agent in the right direction
-            //then increases the rating if it does
-            int movementRating = 0;
-
-            if(targetDirection.x == neighborDirection.x){
-                movementRating += 1;
+            // Skip agents own position
+            if (neighborDirection.x == 0 && neighborDirection.y == 0) {
+                continue;
             }
-            if(targetDirection.y == neighborDirection.y){
-                movementRating += 1;
-            }
+
+            // Calculates and returns total movement rating for a neighbor position
+            int movementRating = calculateMovementRating(targetDirection, neighborDirection);
 
             // Selects the position with the highest movement rating
             if(movementRating > selectedMovementRating){
@@ -71,12 +51,12 @@ void moveAgent(Agent* agent, int* matrix){
                 selectedMovementRating = movementRating;
             }
         }
-
     }
+
     // if the final selected position is the position the agent is currently standing in
     // then skip the following lines
     if(compareTwoPositions(selectedPosition, agent->position)){
-        return;
+    return;
     }
     // Updates the agent position in the matrix
     int agentIndex = getMatrixValue(agent->position, matrix);
@@ -87,12 +67,59 @@ void moveAgent(Agent* agent, int* matrix){
     switchTarget(agent);
 }
 
+
 void moveAgents(int* matrix, Agent* agents){
+
     //iterates through the entire given Agent array for the moveAgent function
     for(int index=0;index<POPULATION;index++){
         moveAgent(&agents[index], matrix);
     }
 }
+
+
+int calculateMovementRating(Position targetDirection, Position neighborDirection) {
+    int movementRating = 0;
+
+    // Adds 1 for each matching direction
+    // Subtracts 1 for each opposite direction
+
+    if(targetDirection.y == neighborDirection.y){
+        movementRating += 1;
+    } else if (targetDirection.y == -neighborDirection.y){
+        movementRating -= 1;
+    }
+
+    if(targetDirection.x == neighborDirection.x){
+        movementRating += 1;
+    } else if(targetDirection.x == -neighborDirection.x){
+        movementRating -= 1;
+    }
+
+    return movementRating;
+}
+
+Position calculateTargetDirection(Agent* agent) {
+    //finds the difference between the agent's current position and the target position
+    int diffX = agent->target.x - agent->position.x;
+    int diffY = agent->target.y - agent->position.y;
+    Position targetDiff = {diffX, diffY};
+    Position targetDirection = {0, 0};
+
+    // Calculate target direction
+    if (targetDiff.x > 0) {
+        targetDirection.x = 1;
+    } else if (targetDiff.x < 0) {
+        targetDirection.x = -1;
+    }
+
+    if (targetDiff.y > 0) {
+        targetDirection.y = 1;
+    } else if (targetDiff.y < 0) {
+        targetDirection.y = -1;
+    }
+    return targetDirection;
+}
+
 
 void spawnAgents(int* matrix, Agent* agents){
     // creates agents until the amount equals the Population cap

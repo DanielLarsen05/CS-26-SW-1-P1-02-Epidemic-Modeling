@@ -6,6 +6,10 @@ void moveAgent(Agent* agent, int* matrix);
 
 void moveAgents(int* matrix, Agent* agents);
 
+int calculateMovementRating(Position targetDirection, Position neighborDirection);
+
+Position calculateTargetDirection(Agent* agent);
+
 void switchTarget(Agent* agent);
 
 int compareTwoPositions(Position position1, Position position2);
