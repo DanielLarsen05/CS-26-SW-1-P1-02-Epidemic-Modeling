@@ -32,7 +32,6 @@
     <list default="true" id="ef2c0c76-e999-4de8-83ed-04ccca59f7d2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/agents.c" beforeDir="false" afterPath="$PROJECT_DIR$/agents.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agents.h" beforeDir="false" afterPath="$PROJECT_DIR$/agents.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

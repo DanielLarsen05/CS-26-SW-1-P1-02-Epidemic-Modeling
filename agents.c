@@ -10,7 +10,7 @@ void moveAgent(Agent* agent, int* matrix) {
     //collects the current position of the agent
     Position selectedPosition = {agent->position.x, agent->position.y};
 
-    int selectedMovementRating = 0;
+    int selectedMovementRating = -3;
 
     // Calculate target direction
     Position targetDirection = calculateTargetDirection(agent);
