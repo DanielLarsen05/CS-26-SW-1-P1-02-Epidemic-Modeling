@@ -12,6 +12,8 @@ int compareTwoPositions(Position position1, Position position2);
 
 void spawnAgents(int* matrix, Agent* agents);
 
+void runVaccination(Agent* agents, int currentTime);
+
 void runRecovery(Agent* agents, int currentTime);
 
 void runTransmissions(int* matrix, Agent* agents, int currentTime);
