@@ -157,6 +157,23 @@ void runRecovery(Agent* agents, int currentTime){
     }
 }
 
+void runVaccination(Agent* agents, int currentTime) {
+    //Vaccination starts at VACCINATION_START
+    if (currentTime < VACCINATION_START) {
+        return;
+    }
+    int vaccinatedCount = 0;
+    // Go through all agents until VACCINATION_RATE is reached
+    for (int agentIndex = 0; agentIndex < POPULATION && vaccinatedCount < VACCINATION_RATE;
+        agentIndex++) {
+        Agent* agent = &agents[agentIndex];
+        //Only susceptible agents can be vaccinated
+        if (agent->state == SUSCEPTIBLE) {
+            agent->state = VACCINATED;
+            vaccinatedCount ++;
+        }
+    }
+}
 
 void runTransmissions(int* matrix, Agent* agents, int currentTime){
     //iterates through the entire Agent array
