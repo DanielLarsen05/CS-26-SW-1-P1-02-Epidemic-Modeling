@@ -25,6 +25,7 @@ void setupSimulation(int* matrix, Agent* agents, int* currentTime){
 void iterateSimulation(int* matrix, Agent* agents, int* currentTime){
     // this function moves the simulation forwards by one timestep and accordingly moves the timestep forwards
     srand(time(NULL));
+    runVaccination(agents, *currentTime)
     runRecovery(agents, *currentTime);
     moveAgents(matrix, agents);
     runTransmissions(matrix, agents, *currentTime);
